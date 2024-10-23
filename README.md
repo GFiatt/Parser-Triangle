@@ -4,7 +4,7 @@ Este proyecto es un parser de un compilador para el lenguaje Triangle. Este gene
 ## Requisitos
 Antes de ejecutar este proyecto, es necesario instalar Graphviz, que es una biblioteca para la generación de imágenes a partir de archivos .dot.
 
-##Instrucciones para ejecutar el proyecto
+## Instrucciones para ejecutar el proyecto
 
 ### 1. Compilar el proyecto: Para compilar todos los archivos .rs en el proyecto, ejecuta:
 ```cargo build```
