@@ -15,6 +15,7 @@ Para compilar todos los archivos .rs en el proyecto, ejecuta:
 Use el siguiente comando para ejecutar el tokenizador, donde `TestCases-Begin/BeginOK4.tri` es un archivo de prueba que se puede variar dependiendo de cuál archivo de prueba desee usar. Los archivos de prueba se encuentran en la carpeta Inputs, que contiene varias subcarpetas con diferentes archivos.
 
 ```cargo run --bin tokenize TestCases-Begin/BeginOK4.tri```
+
 Este comando generará un archivo llamado tokens.out en la carpeta Outputs.
 
 ### 3. Ejecutar el parser: 
