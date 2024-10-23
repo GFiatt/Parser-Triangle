@@ -31,6 +31,6 @@ Para generar el archivo .dot que representa el árbol de parsing, ejecute el sig
 ### 5. Generar la imagen del árbol sintáctico: 
 Para convertir el archivo .dot en una imagen PNG del árbol, ejecute el siguiente comando:
 
-```dot -Tpng tree.dot -o tree.png```
+```dot -Tpng Outputs/tree.dot -o tree.png```
 
 Este comando generará la imagen tree.png, que contiene la representación gráfica del árbol.
