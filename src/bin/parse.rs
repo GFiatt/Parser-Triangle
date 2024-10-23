@@ -105,7 +105,7 @@ enum ASTNode {
 struct Parser {
     tokens: Vec<Token>,
     position: usize,
-    in_begin_block: usize,  // contador de anidamiento para bloques 'begin'
+    in_begin_block: usize,
 }
 
 impl Parser {
@@ -132,18 +132,18 @@ impl Parser {
             TokenType::Keyword => "Declaration",
             
 
-            // Asignar correctamente según tu uso específico de identificadores para tipos
-            TokenType::Identifier if self.is_type_context(token) => "Type-Denoter",
+            //TokenType::Identifier if self.is_type_context(token) => "Type-Denoter",
 
 
             _ => "Unknown"
         }
     }
 
+    /*
     fn is_type_context(&self, token: &Token) -> bool {
-        // Agrega lógica aquí para determinar si un identificador se utiliza como un Type-Denoter
         false
     }
+     */
 
     fn parse_command(&mut self) -> Result<ASTNode, String> {
         let mut commands = Vec::new();
@@ -158,9 +158,8 @@ impl Parser {
                 self.advance();
             }
 
-            // Verificar el próximo token sin consumirlo para decidir si se necesita punto y coma
             if self.is_block_terminator() || self.current_token().token_type == TokenType::EOF {
-                break; // No esperar un punto y coma si el bloque termina o es fin de archivo
+                break;
             }
             
             let command = self.parse_single_command()?;
@@ -171,13 +170,10 @@ impl Parser {
                 self.in_begin_block -= 1;
             }
             
-             // Verificar si el punto y coma es opcional después del comando actual
             if !self.is_semicolon_optional() && self.current_token().token_type != TokenType::PuntoYComa {
-                // Si el punto y coma no es opcional y no está presente, lanzar un error
                 return Err(format!("Syntax Error: Missing ';' at line {}, column {}", self.current_token().line, self.current_token().column));
             }
 
-            // Consumir el punto y coma si está presente
             if self.current_token().token_type == TokenType::PuntoYComa {
                 self.advance();
             }
@@ -201,10 +197,9 @@ impl Parser {
         let next_pos = self.position;
         if next_pos < self.tokens.len() {
             let next_token = &self.tokens[next_pos];
-            // Revisar si el siguiente token permite omitir el punto y coma
             !(matches!(next_token.token_type, TokenType::Keyword) && (next_token.lexeme == "begin" || next_token.lexeme == "let"))
         } else {
-            true  // Si estamos al final del archivo, no es necesario un punto y coma
+            true
         }
     }
 
@@ -221,23 +216,20 @@ impl Parser {
                 Ok(command)
             }
             _ => {
-                // Attempt to parse a VName and an assignment
                 let start_position = self.position;
                 if let Ok(vname) = self.parse_vname() {
                     if self.current_token().token_type == TokenType::Asignacion {
-                        self.advance(); // consume ':='
+                        self.advance();
                         let expression = self.parse_expression()?;
                         return Ok(ASTNode::Assignment {
                             vname: Box::new(vname),
                             expression: Box::new(expression),
                         });
                     } else {
-                        // Not an assignment, backtrack
                         self.position = start_position;
                     }
                 }
     
-                // Attempt to parse a call command
                 if self.current_token().token_type == TokenType::Identifier && self.next_token_lexeme() == "(" {
                     self.parse_call_command()
                 } else {
@@ -277,34 +269,33 @@ impl Parser {
         }
 
         
-        self.advance();  // consume 'if'
+        self.advance();
         let condition = self.parse_expression()?;
 
         self.expect_keyword("then")?;
         
         let then_branch = if self.in_begin_block > 0 {
             if outside == 1 {
-                self.parse_expression()?  // Expect an expression if outside a begin block    
+                self.parse_expression()?  
             } else {
-                self.parse_command()?  // Expect a command if inside a begin block
+                self.parse_command()?
             }
         } else {
-            self.parse_expression()?  // Expect an expression if outside a begin block
+            self.parse_expression()?
         };
 
         self.expect_keyword("else")?;
 
         let else_branch = if self.in_begin_block > 0 {
             if outside == 1 {
-                self.parse_expression()?  // Expect an expression if outside a begin block    
+                self.parse_expression()?    
             } else {
-                self.parse_command()?  // Expect a command if inside a begin block
+                self.parse_command()?
             }
         } else {
-            self.parse_expression()?  // Expect an expression if outside a begin block
+            self.parse_expression()?
         };    
 
-        // No longer expect 'fi' here
         Ok(ASTNode::IfCommand {
             condition: Box::new(condition),
             then_command: Box::new(then_branch),
@@ -313,17 +304,17 @@ impl Parser {
     }    
 
     fn parse_while_command(&mut self) -> Result<ASTNode, String> {
-        self.advance(); // consume 'while'
+        self.advance();
         let condition = self.parse_expression()?;
         self.expect_keyword("do")?;
         let command = self.parse_command()?;
-        // No need to expect a semicolon after the command before 'end'
         Ok(ASTNode::WhileCommand {
             condition: Box::new(condition),
             command: Box::new(command),
         })
     }
 
+    /*
     fn parse_assignment_command(&mut self) -> Result<ASTNode, String> {
         let vname = self.parse_vname()?;
         self.expect_token(TokenType::Asignacion)?;
@@ -333,6 +324,7 @@ impl Parser {
             expression: Box::new(expression),
         })
     }
+    */
 
     fn parse_call_command(&mut self) -> Result<ASTNode, String> {
         let identifier = self.expect_identifier()?;
@@ -353,7 +345,7 @@ impl Parser {
         let mut left = self.parse_primary_expression()?;
         while let Some(op_info) = self.get_operator_info() {
             if op_info.precedence >= min_precedence {
-                let op = self.advance_lexeme();
+                //let op = self.advance_lexeme();
                 let right = self.parse_binary_expression(op_info.precedence + 1)?;
                 left = ASTNode::BinaryExpression {
                     operator: op_info.operator,
@@ -406,7 +398,7 @@ impl Parser {
             }
             TokenType::Operator => {
                 let operator = self.advance_lexeme();
-                let operand = self.parse_primary_expression()?;
+                //let operand = self.parse_primary_expression()?;
                 Ok(ASTNode::Operator(operator))
             }
             TokenType::ParenIzq => {
@@ -432,7 +424,6 @@ impl Parser {
     }
 
     fn handle_parenthesized_expression(&mut self) -> Result<ASTNode, String> {
-        // Primero revisa si el token actual es 'if', indicando una expresión condicional
         if self.current_token_lexeme() == "if" {
             self.parse_if_command()
         } else {
@@ -444,16 +435,16 @@ impl Parser {
         let mut vname = ASTNode::VName(self.expect_identifier()?);
         loop {
             if self.current_token_lexeme() == "." {
-                self.advance(); // consume '.'
+                self.advance();
                 let field = self.expect_identifier()?;
                 vname = ASTNode::DotVName {
                     vname: Box::new(vname),
                     identifier: field,
                 };
             } else if self.current_token().token_type == TokenType::CorchIzq {
-                self.advance(); // consume '['
+                self.advance();
                 let expression = self.parse_expression()?;
-                self.expect_token(TokenType::CorchDer)?; // expect ']'
+                self.expect_token(TokenType::CorchDer)?;
                 vname = ASTNode::SubscriptVName {
                     vname: Box::new(vname),
                     expression: Box::new(expression),

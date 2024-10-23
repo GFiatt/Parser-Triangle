@@ -1,61 +1,20 @@
 
 
+Token: "begin", Tipo: Keyword, Linea: 3, Columna: 1
 
 
-Token: "let", Tipo: Keyword, Linea: 5, Columna: 1
+Token: "let", Tipo: Keyword, Linea: 5, Columna: 5
 
-Token: "type", Tipo: Keyword, Linea: 6, Columna: 5
-Token: "Car", Tipo: Identifier, Linea: 6, Columna: 10
-Token: '~', Tipo: Complement, Linea: 6, Columna: 14
+Token: "var", Tipo: Keyword, Linea: 6, Columna: 9
+Token: "i", Tipo: Identifier, Linea: 6, Columna: 13
+Token: ':', Tipo: DosPuntos, Linea: 6, Columna: 15
+Token: "Integer", Tipo: Keyword, Linea: 6, Columna: 17
 
-Token: "record", Tipo: Keyword, Linea: 7, Columna: 9
+Token: "in", Tipo: Keyword, Linea: 7, Columna: 5
 
-Token: "year", Tipo: Identifier, Linea: 8, Columna: 13
-Token: ':', Tipo: DosPuntos, Linea: 8, Columna: 17
-Token: "Integer", Tipo: Keyword, Linea: 8, Columna: 19
-Token: ',', Tipo: Coma, Linea: 8, Columna: 26
+Token: "i", Tipo: Identifier, Linea: 8, Columna: 9
+Token: ':=', Tipo: Asignacion, Linea: 8, Columna: 11
+Token: "2", Tipo: IntegerLiteral, Linea: 8, Columna: 14
 
-Token: "numberOfDoors", Tipo: Identifier, Linea: 9, Columna: 13
-Token: ':', Tipo: DosPuntos, Linea: 9, Columna: 26
-Token: "Integer", Tipo: Keyword, Linea: 9, Columna: 28
-Token: ',', Tipo: Coma, Linea: 9, Columna: 35
-
-Token: "automaticTransmission", Tipo: Identifier, Linea: 10, Columna: 13
-Token: ':', Tipo: DosPuntos, Linea: 10, Columna: 34
-Token: "Boolean", Tipo: Keyword, Linea: 10, Columna: 36
-
-Token: "end", Tipo: Keyword, Linea: 11, Columna: 9
-Token: ';', Tipo: PuntoYComa, Linea: 11, Columna: 12
-
-Token: "var", Tipo: Keyword, Linea: 12, Columna: 4
-Token: "toyotaPrado", Tipo: Identifier, Linea: 12, Columna: 8
-Token: ':', Tipo: DosPuntos, Linea: 12, Columna: 19
-Token: "Car", Tipo: Identifier, Linea: 12, Columna: 21
-
-Token: "in", Tipo: Keyword, Linea: 13, Columna: 1
-
-Token: "begin", Tipo: Keyword, Linea: 14, Columna: 3
-
-Token: "toyotaPrado", Tipo: Identifier, Linea: 15, Columna: 5
-Token: '.', Tipo: Punto, Linea: 15, Columna: 16
-Token: "year", Tipo: Identifier, Linea: 15, Columna: 17
-Token: ':=', Tipo: Asignacion, Linea: 15, Columna: 22
-Token: "2020", Tipo: IntegerLiteral, Linea: 15, Columna: 25
-Token: ';', Tipo: PuntoYComa, Linea: 15, Columna: 29
-
-Token: "toyotaPrado", Tipo: Identifier, Linea: 16, Columna: 5
-Token: '.', Tipo: Punto, Linea: 16, Columna: 16
-Token: "numberOfDoors", Tipo: Identifier, Linea: 16, Columna: 17
-Token: ':=', Tipo: Asignacion, Linea: 16, Columna: 31
-Token: "4", Tipo: IntegerLiteral, Linea: 16, Columna: 34
-Token: ';', Tipo: PuntoYComa, Linea: 16, Columna: 35
-
-Token: "toyotaPrado", Tipo: Identifier, Linea: 17, Columna: 5
-Token: '[', Tipo: CorchIzq, Linea: 17, Columna: 16
-Token: "automaticTransmission", Tipo: Identifier, Linea: 17, Columna: 17
-Token: ':=', Tipo: Asignacion, Linea: 17, Columna: 39
-Token: "true", Tipo: Identifier, Linea: 17, Columna: 42
-Token: ';', Tipo: PuntoYComa, Linea: 17, Columna: 46
-
-Token: "end", Tipo: Keyword, Linea: 18, Columna: 3
+Token: "end", Tipo: Keyword, Linea: 9, Columna: 1
 

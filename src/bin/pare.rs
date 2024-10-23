@@ -6,7 +6,6 @@ use petgraph::dot::{Config, Dot};
 use petgraph::graph::{Graph, NodeIndex};
 use std::path::Path;
 
-// Definimos las mismas estructuras que en 'parse.rs'
 #[derive(Debug, Deserialize)]
 enum ASTNode {
     Program(Box<ASTNode>),
@@ -80,7 +79,6 @@ fn main() {
         std::process::exit(1);
     }
 
-    // Ruta relativa para el archivo de entrada y salida
     let input_filename = format!("Outputs/{}", args[1]);
     let output_filename = if args.len() > 3 && args[2] == "-o" {
         format!("Outputs/{}", args[3])
@@ -88,19 +86,15 @@ fn main() {
         "Outputs/tree.dot".to_string()
     };
 
-    // Leer el archivo JSON
     let input_path = Path::new(&input_filename);
     let mut file = File::open(&input_path).expect("Error al abrir el archivo de entrada.");
     let mut contents = String::new();
     file.read_to_string(&mut contents).expect("Error al leer el archivo de entrada.");
 
-    // Deserializar el AST
     let ast: ASTNode = serde_json::from_str(&contents).expect("Error al deserializar el AST.");
 
-    // Crear el gráfico
     let mut graph = Graph::<String, ()>::new();
 
-    // Función recursiva para construir el gráfico
     fn build_graph(
         node: &ASTNode,
         graph: &mut Graph<String, ()>,
@@ -139,7 +133,6 @@ fn main() {
             graph.add_edge(parent_idx, current, ());
         }
 
-        // Recorremos los hijos del nodo
         match node {
             ASTNode::Program(child) => {
                 build_graph(child, graph, Some(current));
@@ -234,13 +227,10 @@ fn main() {
         current
     }
 
-    // Construir el gráfico a partir del AST
     build_graph(&ast, &mut graph, None);
 
-    // Generar el archivo DOT
     let dot = Dot::with_config(&graph, &[Config::EdgeNoLabel]);
 
-    // Escribir el archivo DOT en la carpeta Outputs
     let output_path = Path::new(&output_filename);
     let mut output_file = File::create(output_path).expect("Error al crear el archivo de salida.");
     write!(output_file, "{:?}", dot).expect("Error al escribir en el archivo de salida.");

@@ -4,6 +4,7 @@ use std::io::{BufRead, BufReader, Write};
 use std::path::Path;
 
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 enum Token {
     IntegerLiteral(String, usize, usize),
     CharLiteral(String, usize, usize),
@@ -44,7 +45,7 @@ impl<'a> Lexer<'a> {
     fn next_token(&mut self) -> Option<Token> {
         self.skip_whitespace();
         if self.skip_comment() {
-            return self.next_token(); // Skip token generation for comments
+            return self.next_token();
         }
     
         let start_line = self.line;
@@ -58,15 +59,14 @@ impl<'a> Lexer<'a> {
                 ch if "+-*/=<>\\&@%?".contains(ch) || ".:;~,()[]{}".contains(ch) => {
                     self.collect_operator_or_symbol(start_line, start_column)
                 },
-                _ => return None, // Handle unexpected characters by returning None
+                _ => return None,
             };
             Some(token)
         } else {
-            None // No more characters to process
+            None
         }
     }
 
-    // Implement token collection methods here...
 
     fn collect_integer_literal(&mut self, line: usize, column: usize) -> Token {
         let start = self.position;
@@ -117,7 +117,6 @@ impl<'a> Lexer<'a> {
         let current_char = self.input.chars().nth(self.position).unwrap();
         self.advance_position();
         
-        // Manejar el operador compuesto :=
         if current_char == ':' && self.input.chars().nth(self.position) == Some('=') {
             let mut value = String::new();
             value.push(current_char);
@@ -126,7 +125,6 @@ impl<'a> Lexer<'a> {
             return Token::Asignacion(value, line, column); 
         }
         
-        // Devolver el token adecuado para operadores o símbolos específicos
         match current_char {
             '.' => Token::Punto(current_char.to_string(), line, column),
             ':' => Token::DosPuntos(current_char.to_string(), line, column),
@@ -205,15 +203,12 @@ fn main() {
         std::process::exit(1);
     }
 
-    // Define la carpeta de entrada y salida
     let output_dir = "Outputs";
     let input_dir = "Inputs";
 
-    // Obtén el nombre del archivo de entrada proporcionado y combina con el directorio de entrada
     let input_filename = &args[1];
     let input_path = Path::new(input_dir).join(input_filename);
 
-    // Define el nombre del archivo de salida (tokens.out por defecto)
     let output_filename = if args.len() > 3 && args[2] == "-o" {
         &args[3]
     } else {
@@ -221,12 +216,10 @@ fn main() {
     };
     let output_path = Path::new(output_dir).join(output_filename);
 
-    // Abre el archivo de entrada y crea el archivo de salida
     let input_file = File::open(&input_path).expect("Error opening input file.");
     let reader = BufReader::new(input_file);
     let mut output_file = File::create(&output_path).expect("Error creating output file.");
 
-    // Procesa las líneas del archivo de entrada
     for (index, line) in reader.lines().enumerate() {
         let line = line.expect("Error reading line.");
         let mut lexer = Lexer::new(&line);
@@ -252,7 +245,7 @@ fn main() {
                 Token::CorchDer(_, ln, col) => writeln!(output_file, "Token: ']', Tipo: CorchDer, Linea: {}, Columna: {}", ln, col),
                 Token::LlaveIzq(_, ln, col) => writeln!(output_file, "Token: '{{', Tipo: LlaveIzq, Linea: {}, Columna: {}", ln, col),
                 Token::LlaveDer(_, ln, col) => writeln!(output_file, "Token: '}}', Tipo: LlaveDer, Linea: {}, Columna: {}", ln, col),
-                _ => unreachable!(),
+                //_ => unreachable!(),
             }.expect("Error writing to output file.");
         }
         writeln!(output_file).expect("Error writing newline to output file.");

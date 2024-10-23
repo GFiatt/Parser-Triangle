@@ -2,67 +2,20 @@
   "Program": {
     "LetCommand": {
       "declarations": {
-        "DeclarationSequence": [
-          {
-            "VarDeclaration": {
-              "identifier": "a",
-              "type_denoter": {
-                "TypeDenoter": "Integer"
-              }
-            }
-          },
-          {
-            "VarDeclaration": {
-              "identifier": "b",
-              "type_denoter": {
-                "TypeDenoter": "Integer"
-              }
-            }
+        "VarDeclaration": {
+          "identifier": "i",
+          "type_denoter": {
+            "TypeDenoter": "Integer"
           }
-        ]
+        }
       },
       "command": {
-        "IfCommand": {
-          "condition": {
-            "IfCommand": {
-              "condition": {
-                "BinaryExpression": {
-                  "operator": "<",
-                  "left": {
-                    "VName": "a"
-                  },
-                  "right": {
-                    "IntegerLiteral": 5
-                  }
-                }
-              },
-              "then_command": {
-                "VName": "true"
-              },
-              "else_command": {
-                "IntegerLiteral": 2
-              }
-            }
+        "Assignment": {
+          "vname": {
+            "VName": "i"
           },
-          "then_command": {
-            "CallCommand": {
-              "identifier": "putint",
-              "actual_parameters": [
-                {
-                  "VName": "a"
-                }
-              ]
-            }
-          },
-          "else_command": {
-            "CallCommand": {
-              "identifier": "putint",
-              "actual_parameters": [
-                {
-                  "VName": "b"
-                }
-              ]
-            }
+          "expression": {
+            "IntegerLiteral": 2
           }
         }
       }
