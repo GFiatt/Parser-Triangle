@@ -62,6 +62,17 @@ enum ASTNode {
         identifier: String,
         type_denoter: Box<ASTNode>,
     },
+    FuncDeclaration {  
+        identifier: String,
+        parameters: Vec<ASTNode>,
+        return_type: Box<ASTNode>,
+        expression: Box<ASTNode>,
+    },
+    ProcDeclaration {  
+        identifier: String,
+        parameters: Vec<ASTNode>,
+        command: Box<ASTNode>,
+    },
     IfCommand {
         condition: Box<ASTNode>,
         then_command: Box<ASTNode>,
@@ -485,10 +496,12 @@ impl Parser {
             "const" => self.parse_const_declaration(),
             "var" => self.parse_var_declaration(),
             "type" => self.parse_type_declaration(),
-            _ => self.error("a declaration", &self.current_token(), "hola5"),
+            "func" => self.parse_func_declaration(), 
+            "proc" => self.parse_proc_declaration(),  
+            _ => self.error("a declaration", &self.current_token(), "declaration"),
         }
     }
-
+    
     fn parse_const_declaration(&mut self) -> Result<ASTNode, String> {
         self.advance();
         let identifier = self.expect_identifier()?;
@@ -521,6 +534,40 @@ impl Parser {
             type_denoter: Box::new(type_denoter),
         })
     }
+
+    fn parse_func_declaration(&mut self) -> Result<ASTNode, String> {
+        self.advance(); 
+        let identifier = self.expect_identifier()?;  
+        self.expect_token(TokenType::ParenIzq)?;  
+        let parameters = self.parse_actual_parameter_sequence()?;  
+        self.expect_token(TokenType::ParenDer)?;  
+        self.expect_token(TokenType::DosPuntos)?;  
+        let return_type = self.parse_type_denoter()?;  
+        self.expect_token(TokenType::Complement)?;  
+        let expression = self.parse_expression()?;  
+        Ok(ASTNode::FuncDeclaration {
+            identifier,
+            parameters,
+            return_type: Box::new(return_type),
+            expression: Box::new(expression),
+        })
+    }
+
+    fn parse_proc_declaration(&mut self) -> Result<ASTNode, String> {
+        self.advance();  
+        let identifier = self.expect_identifier()?;  
+        self.expect_token(TokenType::ParenIzq)?;  
+        let parameters = self.parse_actual_parameter_sequence()?;  
+        self.expect_token(TokenType::ParenDer)?; 
+        self.expect_token(TokenType::Complement)?;  
+        let command = self.parse_command()?; 
+        Ok(ASTNode::ProcDeclaration {
+            identifier,
+            parameters,
+            command: Box::new(command),
+        })
+    }    
+    
 
     fn parse_type_denoter(&mut self) -> Result<ASTNode, String> {
         if self.current_token_lexeme() == "array" {
