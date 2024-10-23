@@ -65,7 +65,7 @@ enum ASTNode {
     IfCommand {
         condition: Box<ASTNode>,
         then_command: Box<ASTNode>,
-        else_command: Option<Box<ASTNode>>,
+        else_command: Box<ASTNode>,
     },
     WhileCommand {
         condition: Box<ASTNode>,
@@ -105,11 +105,12 @@ enum ASTNode {
 struct Parser {
     tokens: Vec<Token>,
     position: usize,
+    in_begin_block: usize,  // contador de anidamiento para bloques 'begin'
 }
 
 impl Parser {
     fn new(tokens: Vec<Token>) -> Self {
-        Parser { tokens, position: 0 }
+        Parser { tokens, position: 0 , in_begin_block: 0}
     }
 
     fn parse(&mut self) -> Result<ASTNode, String> {
@@ -117,41 +118,93 @@ impl Parser {
         Ok(ASTNode::Program(Box::new(command)))
     }
 
+    fn token_context(&self, token: &Token) -> &'static str {
+        match token.token_type {
+            TokenType::Asignacion => "Assignment",
+            
+            TokenType::IntegerLiteral | TokenType::CharacterLiteral | 
+            TokenType::Identifier | TokenType::Operator | 
+            TokenType::ParenIzq | TokenType::ParenDer | 
+            TokenType::LlaveIzq | TokenType::LlaveDer | 
+            TokenType::CorchIzq | TokenType::CorchDer => "Expression",
+
+            TokenType::DosPuntos | TokenType::Complement | 
+            TokenType::Keyword => "Declaration",
+            
+
+            // Asignar correctamente según tu uso específico de identificadores para tipos
+            TokenType::Identifier if self.is_type_context(token) => "Type-Denoter",
+
+
+            _ => "Unknown"
+        }
+    }
+
+    fn is_type_context(&self, token: &Token) -> bool {
+        // Agrega lógica aquí para determinar si un identificador se utiliza como un Type-Denoter
+        false
+    }
+
     fn parse_command(&mut self) -> Result<ASTNode, String> {
         let mut commands = Vec::new();
+    
+        while !self.is_block_terminator() {
 
-        loop {
-            if self.is_block_terminator() {
-                break;
-            }
-            if self.current_token_lexeme() == ";" {
-                commands.push(ASTNode::Empty);
-                self.advance();
-                continue;
+            if self.current_token_lexeme() == "begin" || self.current_token_lexeme() == "let" {
+                self.in_begin_block += 1;
             }
 
-            let cmd = self.parse_single_command()?;
-            commands.push(cmd);
-
-            if self.current_token_lexeme() == ";" {
+            while self.current_token().token_type == TokenType::PuntoYComa {
                 self.advance();
-                continue;
-            } else {
-                break;
+            }
+
+            // Verificar el próximo token sin consumirlo para decidir si se necesita punto y coma
+            if self.is_block_terminator() || self.current_token().token_type == TokenType::EOF {
+                break; // No esperar un punto y coma si el bloque termina o es fin de archivo
+            }
+            
+            let command = self.parse_single_command()?;
+            commands.push(command);
+            
+            
+            if self.current_token_lexeme() == "end" && self.in_begin_block > 0 {
+                self.in_begin_block -= 1;
+            }
+            
+             // Verificar si el punto y coma es opcional después del comando actual
+            if !self.is_semicolon_optional() && self.current_token().token_type != TokenType::PuntoYComa {
+                // Si el punto y coma no es opcional y no está presente, lanzar un error
+                return Err(format!("Syntax Error: Missing ';' at line {}, column {}", self.current_token().line, self.current_token().column));
+            }
+
+            // Consumir el punto y coma si está presente
+            if self.current_token().token_type == TokenType::PuntoYComa {
+                self.advance();
             }
         }
-
+    
         if commands.len() == 1 {
             Ok(commands.remove(0))
         } else {
             Ok(ASTNode::CommandSequence(commands))
         }
     }
-
+    
     fn is_block_terminator(&self) -> bool {
         match self.current_token_lexeme().as_str() {
             "end" | "else" | "in" => true,
-            _ => self.current_token().token_type == TokenType::EOF,
+            _ => false,
+        }
+    }
+    
+    fn is_semicolon_optional(&self) -> bool {
+        let next_pos = self.position;
+        if next_pos < self.tokens.len() {
+            let next_token = &self.tokens[next_pos];
+            // Revisar si el siguiente token permite omitir el punto y coma
+            !(matches!(next_token.token_type, TokenType::Keyword) && (next_token.lexeme == "begin" || next_token.lexeme == "let"))
+        } else {
+            true  // Si estamos al final del archivo, no es necesario un punto y coma
         }
     }
 
@@ -159,6 +212,7 @@ impl Parser {
         match self.current_token_lexeme().as_str() {
             "let" => self.parse_let_command(),
             "if" => self.parse_if_command(),
+            "putint" | "put" => self.parse_call_command(),
             "while" => self.parse_while_command(),
             "begin" => {
                 self.advance();
@@ -187,7 +241,15 @@ impl Parser {
                 if self.current_token().token_type == TokenType::Identifier && self.next_token_lexeme() == "(" {
                     self.parse_call_command()
                 } else {
-                    self.error("a valid command", &self.current_token())
+                    let context = self.token_context(self.current_token());
+                    let error_message = match context {
+                        "Expression" => "an Expression",
+                        "Declaration" => "a Declaration",
+                        "Type-Denoter" => "a Type-Denoter",
+                        "Assignment" => "an assignment operator",
+                        _ => "Unexpected token",
+                    };
+                    self.error("Expected a single-Command", self.current_token(), &error_message)
                 }
             }
         }
@@ -205,30 +267,57 @@ impl Parser {
     }
 
     fn parse_if_command(&mut self) -> Result<ASTNode, String> {
-        self.advance();
+        let mut outside = 0;
+        self.back_lexeme();
+        if self.current_token_lexeme() == "(" {
+            outside = 1;
+            self.advance(); 
+        } else if self.current_token_lexeme() != "if" {
+            self.advance(); 
+        }
+
+        
+        self.advance();  // consume 'if'
         let condition = self.parse_expression()?;
+
         self.expect_keyword("then")?;
-        let then_command = self.parse_command()?;
-        let else_command = if self.current_token_lexeme() == "else" {
-            self.advance();
-            Some(Box::new(self.parse_command()?))
+        
+        let then_branch = if self.in_begin_block > 0 {
+            if outside == 1 {
+                self.parse_expression()?  // Expect an expression if outside a begin block    
+            } else {
+                self.parse_command()?  // Expect a command if inside a begin block
+            }
         } else {
-            None
+            self.parse_expression()?  // Expect an expression if outside a begin block
         };
-        self.expect_keyword("fi")?;
+
+        self.expect_keyword("else")?;
+
+        let else_branch = if self.in_begin_block > 0 {
+            if outside == 1 {
+                self.parse_expression()?  // Expect an expression if outside a begin block    
+            } else {
+                self.parse_command()?  // Expect a command if inside a begin block
+            }
+        } else {
+            self.parse_expression()?  // Expect an expression if outside a begin block
+        };    
+
+        // No longer expect 'fi' here
         Ok(ASTNode::IfCommand {
             condition: Box::new(condition),
-            then_command: Box::new(then_command),
-            else_command,
+            then_command: Box::new(then_branch),
+            else_command: Box::new(else_branch),
         })
-    }
+    }    
 
     fn parse_while_command(&mut self) -> Result<ASTNode, String> {
-        self.advance();
+        self.advance(); // consume 'while'
         let condition = self.parse_expression()?;
         self.expect_keyword("do")?;
         let command = self.parse_command()?;
-        self.expect_keyword("od")?;
+        // No need to expect a semicolon after the command before 'end'
         Ok(ASTNode::WhileCommand {
             condition: Box::new(condition),
             command: Box::new(command),
@@ -322,7 +411,7 @@ impl Parser {
             }
             TokenType::ParenIzq => {
                 self.advance();
-                let expr = self.parse_expression()?;
+                let expr = self.handle_parenthesized_expression()?;
                 self.expect_token(TokenType::ParenDer)?;
                 Ok(expr)
             }
@@ -338,7 +427,16 @@ impl Parser {
                 self.expect_token(TokenType::CorchDer)?;
                 Ok(ASTNode::ArrayAggregate(array_aggregate))
             }
-            _ => self.error("a primary expression", &self.current_token()),
+            _ => self.error("Excected a primary expression", &self.current_token(), ""),
+        }
+    }
+
+    fn handle_parenthesized_expression(&mut self) -> Result<ASTNode, String> {
+        // Primero revisa si el token actual es 'if', indicando una expresión condicional
+        if self.current_token_lexeme() == "if" {
+            self.parse_if_command()
+        } else {
+            self.parse_expression()
         }
     }
 
@@ -367,7 +465,6 @@ impl Parser {
         Ok(vname)
     }
     
-
     fn parse_actual_parameter_sequence(&mut self) -> Result<Vec<ASTNode>, String> {
         let mut parameters = Vec::new();
         if self.current_token().token_type != TokenType::ParenDer {
@@ -399,14 +496,14 @@ impl Parser {
             "const" => self.parse_const_declaration(),
             "var" => self.parse_var_declaration(),
             "type" => self.parse_type_declaration(),
-            _ => self.error("a declaration", &self.current_token()),
+            _ => self.error("a declaration", &self.current_token(), "hola5"),
         }
     }
 
     fn parse_const_declaration(&mut self) -> Result<ASTNode, String> {
         self.advance();
         let identifier = self.expect_identifier()?;
-        self.expect_token(TokenType::Igual)?;
+        self.expect_token(TokenType::Complement)?;
         let expression = self.parse_expression()?;
         Ok(ASTNode::ConstDeclaration {
             identifier,
@@ -455,7 +552,7 @@ impl Parser {
             let identifier = self.advance_lexeme();
             Ok(ASTNode::TypeDenoter(identifier))
         } else {
-            self.error("a type denoter", &self.current_token())
+            self.error("a type denoter", &self.current_token(), "hola")
         }
     }
 
@@ -527,9 +624,21 @@ impl Parser {
         }
     }
 
+    fn back(&mut self) {
+        if self.position > 0 {
+            self.position -= 1;
+        }
+    }
+
     fn advance_lexeme(&mut self) -> String {
         let lexeme = self.current_token().lexeme.clone();
         self.advance();
+        lexeme
+    }
+
+    fn back_lexeme(&mut self) -> String {
+        let lexeme = self.current_token().lexeme.clone();
+        self.back();
         lexeme
     }
 
@@ -539,8 +648,9 @@ impl Parser {
             Ok(())
         } else {
             self.error(
-                &format!("'{:?}'", expected),
+                "Expected an Expression",
                 &self.current_token(),
+                "a Command"
             )
         }
     }
@@ -550,9 +660,13 @@ impl Parser {
             self.advance();
             Ok(())
         } else {
+            println!("{:?}", self.current_token());
+            println!("{:?}", self.current_token().token_type);
+            
             self.error(
-                &format!("'{}'", keyword),
+                &format!("Missing '{}'", keyword),
                 &self.current_token(),
+                ""
             )
         }
     }
@@ -561,15 +675,31 @@ impl Parser {
         if self.current_token().token_type == TokenType::Identifier {
             Ok(self.advance_lexeme())
         } else {
-            self.error("an identifier", &self.current_token())
+            println!("{:?}", self.current_token());
+            println!("{:?}", self.current_token().token_type);
+
+            self.error("Expected an identifier", &self.current_token(), "an Expression")
         }
     }
 
-    fn error<T>(&self, expected: &str, token: &Token) -> Result<T, String> {
-        Err(format!(
-            "Error at line {}, column {}: Expected {}, found '{}' ({:?})",
-            token.line, token.column, expected, token.lexeme, token.token_type
-        ))
+    fn error<T>(&self, expected: &str, token: &Token, found: &str) -> Result<T, String> {
+        if token.lexeme == "" {
+            Err(format!(
+                "Syntax Error at line {}, column {}: {} but found end of line {}",
+                token.line, token.column, expected, found
+            ))
+        } else if token.lexeme == "if" {
+            Err(format!(
+                "Syntax Error at line {}, column {}: {}",
+                token.line, token.column, expected
+            ))
+        } else {
+            Err(format!(
+                "Syntax Error at line {}, column {}: {} but found {} ('{}')",
+                token.line, token.column, expected, found, token.lexeme
+            ))
+        }
+        
     }
 }
 

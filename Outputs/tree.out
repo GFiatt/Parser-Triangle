@@ -4,149 +4,67 @@
       "declarations": {
         "DeclarationSequence": [
           {
-            "TypeDeclaration": {
-              "identifier": "StudentGrade",
+            "VarDeclaration": {
+              "identifier": "a",
               "type_denoter": {
-                "RecordType": [
-                  [
-                    "homeworks",
-                    {
-                      "ArrayType": {
-                        "size": {
-                          "IntegerLiteral": 3
-                        },
-                        "element_type": {
-                          "TypeDenoter": "Integer"
-                        }
-                      }
-                    }
-                  ],
-                  [
-                    "classwork",
-                    {
-                      "TypeDenoter": "Integer"
-                    }
-                  ]
-                ]
+                "TypeDenoter": "Integer"
               }
             }
           },
           {
             "VarDeclaration": {
-              "identifier": "studentGrade",
+              "identifier": "b",
               "type_denoter": {
-                "TypeDenoter": "StudentGrade"
+                "TypeDenoter": "Integer"
               }
             }
           }
         ]
       },
       "command": {
-        "CommandSequence": [
-          {
-            "Assignment": {
-              "vname": {
-                "SubscriptVName": {
-                  "vname": {
-                    "DotVName": {
-                      "vname": {
-                        "VName": "studentGrade"
-                      },
-                      "identifier": "homeworks"
-                    }
+        "IfCommand": {
+          "condition": {
+            "IfCommand": {
+              "condition": {
+                "BinaryExpression": {
+                  "operator": "<",
+                  "left": {
+                    "VName": "a"
                   },
-                  "expression": {
-                    "IntegerLiteral": 0
+                  "right": {
+                    "IntegerLiteral": 5
                   }
                 }
               },
-              "expression": {
-                "IntegerLiteral": 72
-              }
-            }
-          },
-          {
-            "Assignment": {
-              "vname": {
-                "SubscriptVName": {
-                  "vname": {
-                    "DotVName": {
-                      "vname": {
-                        "VName": "studentGrade"
-                      },
-                      "identifier": "homeworks"
-                    }
-                  },
-                  "expression": {
-                    "IntegerLiteral": 1
-                  }
-                }
+              "then_command": {
+                "VName": "true"
               },
-              "expression": {
-                "IntegerLiteral": 100
+              "else_command": {
+                "IntegerLiteral": 2
               }
             }
           },
-          {
-            "Assignment": {
-              "vname": {
-                "SubscriptVName": {
-                  "vname": {
-                    "DotVName": {
-                      "vname": {
-                        "VName": "studentGrade"
-                      },
-                      "identifier": "homeworks"
-                    }
-                  },
-                  "expression": {
-                    "IntegerLiteral": 2
-                  }
-                }
-              },
-              "expression": {
-                "IntegerLiteral": 96
-              }
-            }
-          },
-          {
-            "Assignment": {
-              "vname": {
-                "DotVName": {
-                  "vname": {
-                    "VName": "studentGrade"
-                  },
-                  "identifier": "classwork"
-                }
-              },
-              "expression": {
-                "IntegerLiteral": 90
-              }
-            }
-          },
-          {
+          "then_command": {
             "CallCommand": {
               "identifier": "putint",
               "actual_parameters": [
                 {
-                  "SubscriptVName": {
-                    "vname": {
-                      "DotVName": {
-                        "vname": {
-                          "VName": "studentGrade"
-                        },
-                        "identifier": "homeworks"
-                      }
-                    },
-                    "expression": {
-                      "IntegerLiteral": 1
-                    }
-                  }
+                  "VName": "a"
+                }
+              ]
+            }
+          },
+          "else_command": {
+            "CallCommand": {
+              "identifier": "putint",
+              "actual_parameters": [
+                {
+                  "VName": "b"
                 }
               ]
             }
           }
-        ]
+        }
       }
     }
   }
