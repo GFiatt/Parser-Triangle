@@ -6,7 +6,7 @@ Antes de ejecutar este proyecto, es necesario instalar Graphviz, que es una bibl
 
 ##Instrucciones para ejecutar el proyecto
 
-### 1.Compilar el proyecto: Para compilar todos los archivos .rs en el proyecto, ejecuta:
+### 1. Compilar el proyecto: Para compilar todos los archivos .rs en el proyecto, ejecuta:
 ```cargo build```
 
 ### 2. Ejecutar el tokenizador: Use el siguiente comando para ejecutar el tokenizador, donde `TestCases-Begin/BeginOK4.tri` es un archivo de prueba que se puede variar dependiendo de cuál archivo de prueba quieras usar. Los archivos de prueba se encuentran en la carpeta Inputs, que contiene varias subcarpetas con diferentes archivos.
