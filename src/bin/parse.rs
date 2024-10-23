@@ -139,11 +139,10 @@ impl Parser {
         }
     }
 
-    /*
-    fn is_type_context(&self, token: &Token) -> bool {
+    #[allow(dead_code)]
+    fn is_type_context(&self, _token: &Token) -> bool {
         false
     }
-     */
 
     fn parse_command(&mut self) -> Result<ASTNode, String> {
         let mut commands = Vec::new();
@@ -314,7 +313,7 @@ impl Parser {
         })
     }
 
-    /*
+    #[allow(dead_code)]
     fn parse_assignment_command(&mut self) -> Result<ASTNode, String> {
         let vname = self.parse_vname()?;
         self.expect_token(TokenType::Asignacion)?;
@@ -324,7 +323,6 @@ impl Parser {
             expression: Box::new(expression),
         })
     }
-    */
 
     fn parse_call_command(&mut self) -> Result<ASTNode, String> {
         let identifier = self.expect_identifier()?;
@@ -345,7 +343,7 @@ impl Parser {
         let mut left = self.parse_primary_expression()?;
         while let Some(op_info) = self.get_operator_info() {
             if op_info.precedence >= min_precedence {
-                //let op = self.advance_lexeme();
+                let _op = self.advance_lexeme();
                 let right = self.parse_binary_expression(op_info.precedence + 1)?;
                 left = ASTNode::BinaryExpression {
                     operator: op_info.operator,
@@ -398,7 +396,7 @@ impl Parser {
             }
             TokenType::Operator => {
                 let operator = self.advance_lexeme();
-                //let operand = self.parse_primary_expression()?;
+                let _operand = self.parse_primary_expression()?;
                 Ok(ASTNode::Operator(operator))
             }
             TokenType::ParenIzq => {
