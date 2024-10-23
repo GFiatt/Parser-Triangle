@@ -1,0 +1,153 @@
+{
+  "Program": {
+    "LetCommand": {
+      "declarations": {
+        "DeclarationSequence": [
+          {
+            "TypeDeclaration": {
+              "identifier": "StudentGrade",
+              "type_denoter": {
+                "RecordType": [
+                  [
+                    "homeworks",
+                    {
+                      "ArrayType": {
+                        "size": {
+                          "IntegerLiteral": 3
+                        },
+                        "element_type": {
+                          "TypeDenoter": "Integer"
+                        }
+                      }
+                    }
+                  ],
+                  [
+                    "classwork",
+                    {
+                      "TypeDenoter": "Integer"
+                    }
+                  ]
+                ]
+              }
+            }
+          },
+          {
+            "VarDeclaration": {
+              "identifier": "studentGrade",
+              "type_denoter": {
+                "TypeDenoter": "StudentGrade"
+              }
+            }
+          }
+        ]
+      },
+      "command": {
+        "CommandSequence": [
+          {
+            "Assignment": {
+              "vname": {
+                "SubscriptVName": {
+                  "vname": {
+                    "DotVName": {
+                      "vname": {
+                        "VName": "studentGrade"
+                      },
+                      "identifier": "homeworks"
+                    }
+                  },
+                  "expression": {
+                    "IntegerLiteral": 0
+                  }
+                }
+              },
+              "expression": {
+                "IntegerLiteral": 72
+              }
+            }
+          },
+          {
+            "Assignment": {
+              "vname": {
+                "SubscriptVName": {
+                  "vname": {
+                    "DotVName": {
+                      "vname": {
+                        "VName": "studentGrade"
+                      },
+                      "identifier": "homeworks"
+                    }
+                  },
+                  "expression": {
+                    "IntegerLiteral": 1
+                  }
+                }
+              },
+              "expression": {
+                "IntegerLiteral": 100
+              }
+            }
+          },
+          {
+            "Assignment": {
+              "vname": {
+                "SubscriptVName": {
+                  "vname": {
+                    "DotVName": {
+                      "vname": {
+                        "VName": "studentGrade"
+                      },
+                      "identifier": "homeworks"
+                    }
+                  },
+                  "expression": {
+                    "IntegerLiteral": 2
+                  }
+                }
+              },
+              "expression": {
+                "IntegerLiteral": 96
+              }
+            }
+          },
+          {
+            "Assignment": {
+              "vname": {
+                "DotVName": {
+                  "vname": {
+                    "VName": "studentGrade"
+                  },
+                  "identifier": "classwork"
+                }
+              },
+              "expression": {
+                "IntegerLiteral": 90
+              }
+            }
+          },
+          {
+            "CallCommand": {
+              "identifier": "putint",
+              "actual_parameters": [
+                {
+                  "SubscriptVName": {
+                    "vname": {
+                      "DotVName": {
+                        "vname": {
+                          "VName": "studentGrade"
+                        },
+                        "identifier": "homeworks"
+                      }
+                    },
+                    "expression": {
+                      "IntegerLiteral": 1
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

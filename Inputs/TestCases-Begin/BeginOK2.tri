@@ -1,0 +1,10 @@
+! Test of begin-end, it runs correctly
+
+begin
+   put('a');
+   put('b')
+end;
+begin
+   putint(5);
+   putint(6)
+end

@@ -1,0 +1,9 @@
+! Test of let in command, it succeeds
+! It generates a contextual error
+
+let 
+	var i : Char;
+	var j : Integer
+in 
+	put(i);
+	put(i)! Outside of let, where i does not exist

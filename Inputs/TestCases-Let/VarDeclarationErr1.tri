@@ -1,0 +1,10 @@
+! Test of type declaration, it fails
+
+let
+
+  var a := 2 ! Var Declaration expects : and a type, not := and an expression
+
+in
+
+  putint (a)
+

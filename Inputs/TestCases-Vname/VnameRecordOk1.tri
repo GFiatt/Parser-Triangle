@@ -1,0 +1,20 @@
+! Vname successful test
+! Vnames as Vname.Identifier
+
+let
+   type Date ~ 
+          record
+            d: Integer,
+            m: Integer,
+            y: Integer
+          end;
+   var birthday: Date
+in
+  begin
+    birthday.d := 16;
+    birthday.m := 05;
+    birthday.y := 2001;
+    putint(birthday.d);
+    putint(birthday.m);
+    putint(birthday.y)
+  end

@@ -1,0 +1,17 @@
+! If Expression successful test
+! If E1 then E2 else E3 where
+! E2 and E2 are record aggregates
+
+let
+    type Date ~ record
+        y: Integer,
+        m: Integer,
+        d: Integer
+    end;
+    var today : Date;
+    var tomorrow : Date
+in
+    tomorrow := if (today.d = 31) then
+        {y ~ today.y + 1, m ~ 1, d ~ 1} !record aggregate
+    else
+        {y ~ today.y , m ~ today.m + 1, d ~ today.d + 1} !record aggregate

@@ -1,0 +1,4 @@
+! Test of begin-end, doesn't run correctly
+begin
+    {d ~ 1, m ~ 1, a ~ 1991}; ! is an expression, not a command
+end

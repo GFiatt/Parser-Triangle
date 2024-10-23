@@ -1,0 +1,5 @@
+! Test of procedure declaration, it fails
+let
+   proc p(): Integer ~ put('!') ! Procedure does not have a type
+in
+  p()

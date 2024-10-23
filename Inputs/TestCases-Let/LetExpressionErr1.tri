@@ -1,0 +1,9 @@
+! Test of let in expression inside func, it fails
+let
+  func a(): Integer ~
+    let 
+      var b: Integer 
+      ! missing in
+      b + 3
+in
+  putint(0)

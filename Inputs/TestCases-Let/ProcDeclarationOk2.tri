@@ -1,0 +1,10 @@
+! Test of procedure declaration with a parameter, it works
+let
+   proc p(a: Char) ~ 
+                    begin
+                      put('<');
+                      put(a);
+                      put('>')
+                    end
+in
+  p('x')

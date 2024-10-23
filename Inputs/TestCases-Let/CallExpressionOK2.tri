@@ -1,0 +1,6 @@
+! Test of call expression, it runs correctly
+let
+   func b(): Char ~
+     b()
+in
+  put(b())

@@ -1,0 +1,13 @@
+! If expression error test
+! if E1 then E2 else E3 where
+! before E2 there must be a 'then'
+
+let
+  var a : Integer;
+  var c : Integer
+in
+  if (if a > 15 true else false) then ! missing then inside expression
+    putint(a)
+  else
+    getint(var c)
+    

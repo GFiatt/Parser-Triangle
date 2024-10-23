@@ -1,0 +1,13 @@
+! Vname[Expression] success test
+! Fails in the checker, expression must be an Integer
+
+let
+    var grades: array 4 of Integer
+in
+  begin
+    grades[0] := 89;
+    grades[1] := 52;
+    grades[2] := 100;
+    grades[3] := 75;
+    putint(grades['2']); ! Expression inside [] is not an Integer
+  end

@@ -1,0 +1,8 @@
+! If Command successful test
+! if E1 then C1 else C2 where
+! where C1 and C2 are single-commands
+
+if ('a' = 'a') then
+   putint(10)
+else
+   putint(11)

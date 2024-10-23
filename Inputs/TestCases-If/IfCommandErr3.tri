@@ -1,0 +1,6 @@
+! If Command error test
+! An if command must always contain an else clause
+
+if ('a' = 'a') then
+   putint(10)
+!missing else clause

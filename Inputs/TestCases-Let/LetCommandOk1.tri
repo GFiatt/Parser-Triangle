@@ -1,0 +1,5 @@
+! Test of basic let in command, it succeeds
+let
+   const x ~ 'x' 
+in
+   put(x)

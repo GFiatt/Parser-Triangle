@@ -1,0 +1,15 @@
+! If Command successful test
+! if E1 then C1 else C2 where
+! where C1 and C2 are of type identifier (actual-parameter-sequence)
+
+let
+  var a : Integer;
+  var c : Integer
+in
+  if (if a < 8 then true else false) then begin
+    getint(var a);
+    putint(a)
+    end
+  else
+    getint(var c)
+    

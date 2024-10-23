@@ -1,0 +1,15 @@
+! If Command error test
+! if E1 then C1 else C2 where
+! where C1 and C2 are of type identifier (actual-parameter-sequence)
+! actual-parameter-sequence must be inside parenthesis
+
+let
+  var a : Integer;
+  var c : Integer
+in
+  if (if a < 8 then true else false) then
+    getint var a; !missing parenthesis
+    putint(a)
+  else
+    getint(var c)
+    

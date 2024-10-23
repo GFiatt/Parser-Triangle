@@ -1,0 +1,6 @@
+! Test of let in command, it fails
+let
+   var x: Integer;
+   ! Second declaration expected
+in
+   put(x)

@@ -1,0 +1,14 @@
+! If Expression successful test
+! if E1 then E2 else E3 where
+! E1 is an Operator primary-Expression
+! E2 and E3 are Character-Literals
+
+let
+    var x : Integer;
+    func a(): Char ~
+        if (x < 5) then
+            'a'
+        else
+            'b' 
+in
+   put(a()) ! should put 'a'

@@ -1,0 +1,8 @@
+! Error: proc being called with func as parameter, but func returns a constant whilst proc expects a variable
+
+let
+  func F () : Integer ~ 10;
+  proc P (var x : Integer) ~ ! P expects variable by reference
+    putint (x * 2)
+in
+  P (F()) ! Contextual Error: F returns a constant

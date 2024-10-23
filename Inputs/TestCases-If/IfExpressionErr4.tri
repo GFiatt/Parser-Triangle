@@ -1,0 +1,15 @@
+! If Expression error test
+! If E1 then E2 else E3
+! E2 and E3 are expressions
+
+let
+    var c : Integer;
+    var d : Integer;
+    var a : Integer;
+    var b : array 2 of Integer
+in
+    b := 
+        if ((c + d) = a) then
+            [c+d,a]
+        else
+            a := 3 ! this is a command, not an expression

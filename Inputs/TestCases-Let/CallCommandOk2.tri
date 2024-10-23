@@ -1,0 +1,6 @@
+! Test of call command, it succeeds
+let
+  proc P (x : Integer) ~
+    putint (x * 2)
+in
+  P (10)

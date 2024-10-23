@@ -1,0 +1,8 @@
+! Test of let in command, it fails
+let
+   var x: Integer;
+   var y: Char
+in
+   put(x)
+
+end ! let does not have "end"

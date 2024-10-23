@@ -1,0 +1,8 @@
+! If Expression error test
+let
+    var x: Integer 
+in
+    if (x > 12) then ! this is an if-expression, let expects a command
+      true
+    else
+      false

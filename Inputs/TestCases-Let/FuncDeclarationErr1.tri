@@ -1,0 +1,5 @@
+! Test of function declaration, it fails
+let
+   func a() ~ 5 ! Missing function type
+in
+  putint(a())

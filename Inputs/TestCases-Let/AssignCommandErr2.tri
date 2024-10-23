@@ -1,0 +1,4 @@
+! Test of assign command, it fails
+let
+   var x: Integer in
+  456 := 123 ! Expected identifier, got number instead

@@ -1,0 +1,8 @@
+! Test of begin-end, doesn't run correctly
+
+begin
+    record          ! this is a Type-Denoter, not a command
+        d: Integer
+    end
+end
+

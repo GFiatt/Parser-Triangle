@@ -1,0 +1,14 @@
+! Test of record expression, it fails
+
+let
+   type Fecha ~ 
+      record
+        d: Integer,
+        m: Integer, ! Expected one more declaration
+      end;
+   var a: Fecha
+in
+begin
+   a:= {d ~ 1, m ~ 1, a ~ 1991};
+   putint(a.d)
+end

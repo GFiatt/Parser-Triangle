@@ -1,0 +1,18 @@
+! If Command successful test
+! if E1 then C1 else C2 where
+! where E1 C1 and C2 are single-commands
+
+let
+  var a : Integer;
+  var b : Char;
+  var c : Boolean
+in
+begin
+  a := 120;
+  b := 'x';
+  c := (ord(b) = a);
+  if (c) then
+    put('y')
+  else
+    put('n')
+end

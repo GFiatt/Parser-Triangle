@@ -1,0 +1,20 @@
+! If Command successful test
+! if E1 then C1 else C2 where
+! where C1 and C2 are if commands
+
+let
+  var a : Integer;
+  var b : Integer;
+  var x : Integer;
+  var y : Integer
+in
+  if (if a < 8 then true else false) then
+    if (x < a) then
+            putint(a)
+        else
+            putint(x)
+  else
+    if (y > b) then
+            putint(b)
+        else
+            putint(y)

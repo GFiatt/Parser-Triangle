@@ -1,0 +1,15 @@
+! Test of record expression, it works
+
+let
+   type Fecha ~ 
+      record
+        d: Integer,
+        m: Integer,
+        a: Integer
+      end;
+   var a: Fecha
+in
+begin
+   a:= {d ~ 1+8+8, m ~ 1 + 3, a ~ 1991 + 6; ! Missing right curly brace
+   putint(a.d)
+end

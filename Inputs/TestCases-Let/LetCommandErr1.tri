@@ -1,0 +1,4 @@
+! Test of let in command, it fails
+let var x: Integer in
+   'z'
+! Expected command, not expression

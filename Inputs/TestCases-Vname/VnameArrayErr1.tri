@@ -1,0 +1,18 @@
+! Vname[Expression] fail test
+! Vname must be an array type
+! 
+
+let
+    type Car ~ 
+        record
+            year: Integer,
+            numberOfDoors: Integer,
+            automaticTransmission: Boolean
+        end;
+   var toyotaPrado: Car
+in
+  begin
+    toyotaPrado.year := 2020;
+    toyotaPrado.numberOfDoors := 4;
+    toyotaPrado[automaticTransmission := true; !Missing ]
+  end

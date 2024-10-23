@@ -1,0 +1,14 @@
+! If Expression successful test
+
+let
+  var a : Integer;
+  var b : Integer
+in
+  if (if a < 5 then 5 else 2) then ! Expression following the 'if' must be boolean, but instead it returns an integer
+    putint(a)
+  else
+    putint(b)
+
+
+!OK lexical and syntactic analysis 
+!Contextual Error: expression (if a < 5 then 5 else 2) is not of boolean type

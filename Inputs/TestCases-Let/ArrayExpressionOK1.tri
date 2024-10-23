@@ -1,0 +1,6 @@
+! Test of array expression, it runs
+let
+
+  var b : array 10 of Integer
+
+in

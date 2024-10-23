@@ -1,0 +1,8 @@
+! If Command successful test
+
+if ('a'=1) then
+    puteol()
+else puteol()
+
+! this proceduces a contextual error because inside
+! the if expression there is a different type comparison

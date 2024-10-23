@@ -1,0 +1,6 @@
+! Test of constant declaration, it works
+let 
+
+  const y ~ 85
+
+in

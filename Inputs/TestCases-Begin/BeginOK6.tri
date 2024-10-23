@@ -1,0 +1,8 @@
+! Test of begin-end, it runs correctly
+
+begin
+    a:= {d ~ 1, m ~ 1, a ~ 1991};
+end
+
+! OK lexical and syntactic analysis
+! Contextual Error, a is not declared

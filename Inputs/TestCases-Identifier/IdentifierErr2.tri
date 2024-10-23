@@ -1,0 +1,8 @@
+! Identifier error test
+! Identifiers must start with a letter
+
+let
+    var 1age := 18
+in
+    putint(1age)
+end

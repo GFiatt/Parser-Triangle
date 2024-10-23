@@ -1,0 +1,7 @@
+! Test of call command, it succeeds
+let
+  func F () : Integer ~ 10;
+  proc P (x : Integer) ~ 
+    putint (x * 2)
+in
+  P() ! contextual error: there's no parameters

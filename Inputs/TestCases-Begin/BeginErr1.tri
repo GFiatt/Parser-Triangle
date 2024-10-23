@@ -1,0 +1,9 @@
+! Test of begin-end, doesn't run correctly
+
+begin
+
+    let                 ! this is a Let-Expression 
+        const i ~ 5     ! begin needs a command
+    in 
+        i 
+end

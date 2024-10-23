@@ -1,0 +1,22 @@
+! Test of record declaration, it works
+let
+   type a ~ array 3 of record
+                         x: Integer,
+                         y: Integer
+                       end;
+   type b ~ record
+              a: Integer,
+              b: Char,
+              c: a
+            end;
+  var x: b
+in
+begin
+  x:= {a ~ 0, b ~ 'x', c ~ [{x ~ 1, y ~ 1}, {x ~ 1, y ~ 2}, {x ~ 1, y ~ 3}]};
+  putint(x.a);
+  put(x.b);
+  putint(x.c[0].x);
+  putint(x.c[0].y);
+  putint(x.c[1].y);
+  putint(x.c[2].y);
+end

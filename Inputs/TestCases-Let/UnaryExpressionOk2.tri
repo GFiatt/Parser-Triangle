@@ -1,0 +1,9 @@
+! Test of Unary Expression
+let
+   func a(b: Boolean): Boolean ~
+        +b
+in
+  put('a')
+
+! OK
+! Contextual Error, + it's not an unary operator

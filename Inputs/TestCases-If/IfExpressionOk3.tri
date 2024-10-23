@@ -1,0 +1,15 @@
+! If Expression successful test
+! If E1 then E2 else E3 where
+! E1 evaluates as a boolean from a func call
+! E2 and E2 are character-literals
+
+let
+    var current: Char;
+    const shift ~ ord('a') - ord('A');
+    func capital (ch: Char) : Boolean ~
+        (ord('A') <= ord(ch)) /\ (ord(ch) <= ord('Z'))
+in
+    current := if capital(current) then
+        chr(ord(current) + shift)
+    else
+        current

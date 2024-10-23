@@ -1,0 +1,4 @@
+! Test of assign command, it fails
+let
+   var x: Integer in
+  x = 123 ! The assing symbol is :=

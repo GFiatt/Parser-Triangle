@@ -1,0 +1,7 @@
+! Test of call command, it fails
+let
+  func F () : Integer ~ 10;
+  proc P (x : Integer) ~ 
+    putint (x * 2)
+in
+  P ! Parenthesis missing 

@@ -1,0 +1,7 @@
+! Test of constant declaration, it fails
+let
+   const b
+in
+begin
+  put(b)
+end

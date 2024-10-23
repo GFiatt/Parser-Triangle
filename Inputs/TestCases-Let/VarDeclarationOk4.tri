@@ -1,0 +1,10 @@
+! Test of var declaration, it works
+
+let
+
+  var a : Integer
+
+in
+
+  putint (a)
+

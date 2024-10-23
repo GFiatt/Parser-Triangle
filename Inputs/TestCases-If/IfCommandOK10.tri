@@ -1,0 +1,13 @@
+! If Command successful test
+
+let
+  var a : Integer;
+  var b : Char
+in
+  if a + 5 then ! Expression following the 'if' must be boolean
+    putint(a)
+  else
+    put(b)
+
+!OK lexical and syntactic analysis 
+!Contextual Error: expression a + 5 is not of boolean type

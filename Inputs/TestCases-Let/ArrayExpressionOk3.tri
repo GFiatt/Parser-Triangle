@@ -1,0 +1,9 @@
+! Test of array expression, it works for the parser
+
+let
+   var x: array 10 of Integer
+in
+begin
+  x:= [1, 2, 4, 8, 16, 32, 64, 128, 256]; !contextual error assignment incompatibility
+  putint(x[5])
+end

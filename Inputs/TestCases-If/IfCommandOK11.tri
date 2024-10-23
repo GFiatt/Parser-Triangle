@@ -1,0 +1,13 @@
+! If Command successful test
+
+let
+  var a : Integer;
+  var b : Integer
+in
+  if (if a < 5 then true else 2) then ! when a >= 5 the expression does not evaluate as boolean
+    putint(a)
+  else
+    putint(b)
+
+!OK lexical and syntactic analysis 
+!Contextual Error: expression is not of boolean type

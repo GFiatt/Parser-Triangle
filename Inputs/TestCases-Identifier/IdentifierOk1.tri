@@ -1,0 +1,10 @@
+! Identifier successful test
+! Identifiers can be built with n letters and digits
+
+let
+    var test12test89g : Integer
+in
+begin
+    test12test89g := 1900;
+    putint(test12test89g)
+end

@@ -1,0 +1,8 @@
+! Test of let in expression inside an asign command, it succeeds
+let
+  var x : Integer
+in
+  x := let 
+      var b: Integer 
+    in 
+      b + 3

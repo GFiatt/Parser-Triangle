@@ -1,0 +1,9 @@
+! If Command error test
+
+let
+    var x: Integer 
+in
+    if (x := 12) then ! if expects an expression, not a command
+        x:= 0
+    else
+        x:=1

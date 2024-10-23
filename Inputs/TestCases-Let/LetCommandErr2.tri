@@ -1,0 +1,5 @@
+! Test of let in command, it fails
+let
+   const x ~ 'x' 
+! Missing in token
+   put(x)

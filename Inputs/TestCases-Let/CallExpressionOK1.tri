@@ -1,0 +1,6 @@
+! Test of call expression, it works
+let
+   func a(): Integer ~
+     a()
+in
+  putint(a())

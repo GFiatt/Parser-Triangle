@@ -1,0 +1,9 @@
+! Test of let in expression, it works
+let
+  func a(): Integer ~
+    let 
+      var b: Integer 
+    in 
+      b + 3
+in
+  putint(0)

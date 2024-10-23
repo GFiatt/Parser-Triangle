@@ -1,0 +1,5 @@
+! Test of begin-end, doesn't run correctly
+
+begin
+    const i ~ 5 ! this is a declaration, not a command
+end

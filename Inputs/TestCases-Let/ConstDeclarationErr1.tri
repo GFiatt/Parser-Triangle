@@ -1,0 +1,7 @@
+! Test of constant declaration, it fails
+let
+   const t = 'a' ! Correct token is ~
+in
+begin
+  put(t)
+end

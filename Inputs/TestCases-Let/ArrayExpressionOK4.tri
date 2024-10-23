@@ -1,0 +1,9 @@
+! Test of array expression, it runs
+
+let
+   var x: array 2 of array 10 of Integer ! You can make arrays inside of arrays
+in
+begin
+  x:= [[1, 2, 4, 8, 16, 32, 64, 128, 256, 512],[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]];
+  putint(x[1][7])
+end

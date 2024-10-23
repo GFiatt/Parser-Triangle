@@ -1,0 +1,15 @@
+! Test of let in expression inside let and func, it succeeds
+
+let
+  func a(): Integer ~
+    let 
+      var b: Integer 
+    in 
+      let
+        var c : Integer
+      in
+        c
+in
+  putint(0)
+
+!OK

@@ -1,0 +1,20 @@
+! Vname successful test
+! Vnames as Vname.Identifier, Vname[Expression]
+
+let
+   type Date ~ 
+          record
+            d: Integer,
+            m: Integer,
+            y: Integer
+          end;
+   var famBirthdates: array 5 of Date
+in
+  begin
+    famBirthdates[0].y := 1972;
+    famBirthdates[1].y := 1974;
+    famBirthdates[2].y := 2000;
+    famBirthdates[3].y := 2003;
+    famBirthdates[4].y := 2008;
+    putint(famBirthdates[2].y);
+  end

@@ -1,0 +1,5 @@
+! Test of var declaration, it works in the parser
+let
+  var x: Integer 
+in
+    put('x')

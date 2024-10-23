@@ -1,0 +1,15 @@
+! Test of let in command inside let and proc, it succeeds
+let
+   proc p() ~ let
+                 var x: Integer in
+                 begin
+                   getint(var x);
+                   putint(x)
+                 end;
+   var x: Char
+in
+begin
+  get(var x);
+  put(x);
+end
+

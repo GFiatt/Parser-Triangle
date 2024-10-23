@@ -1,0 +1,10 @@
+! Test of function declaration, it works
+
+let
+   func media(var a: Integer, var b: Integer): Integer ~ (a+b)/2;
+   var z: Integer
+in
+begin
+  z:= media(10,20);
+  putint(z)
+end

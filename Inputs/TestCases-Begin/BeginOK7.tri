@@ -1,0 +1,5 @@
+! Test of begin-end, it runs correctly
+
+begin
+    while true do putint(1)
+end

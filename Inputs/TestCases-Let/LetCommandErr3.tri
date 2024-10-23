@@ -1,0 +1,5 @@
+! Test of let in command, it fails
+let
+! Missing declaration
+in
+   put(x)

@@ -1,0 +1,19 @@
+
+
+Token: "begin", Tipo: Keyword, Linea: 3, Columna: 1
+
+Token: "if", Tipo: Keyword, Linea: 4, Columna: 5
+Token: '(', Tipo: ParenIzq, Linea: 4, Columna: 8
+Token: "1", Tipo: IntegerLiteral, Linea: 4, Columna: 9
+Token: "=", Tipo: Operator, Linea: 4, Columna: 10
+Token: "1", Tipo: IntegerLiteral, Linea: 4, Columna: 11
+Token: ')', Tipo: ParenDer, Linea: 4, Columna: 12
+
+Token: "then", Tipo: Keyword, Linea: 5, Columna: 5
+Token: "a", Tipo: CharLiteral, Linea: 5, Columna: 10
+
+Token: "else", Tipo: Keyword, Linea: 6, Columna: 5
+Token: "0", Tipo: IntegerLiteral, Linea: 6, Columna: 10
+
+Token: "end", Tipo: Keyword, Linea: 7, Columna: 1
+

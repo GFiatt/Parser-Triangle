@@ -1,0 +1,10 @@
+! Vname successful test
+! Vnames can identify the value bound to an identifier
+
+let
+    var age : Integer
+in
+    begin
+        age := 20;
+        putint(age + 1)
+    end

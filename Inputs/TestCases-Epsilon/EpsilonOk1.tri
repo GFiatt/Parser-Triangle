@@ -1,0 +1,13 @@
+! Test of empty command, it runs correctly
+
+let var x : Integer
+
+in begin
+
+  putint (1 / 2 * 3)
+
+; 
+
+;
+
+end

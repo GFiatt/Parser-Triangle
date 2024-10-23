@@ -1,0 +1,4 @@
+! Test of assign command, it works
+let
+   var x: Integer in
+  x := 1 + 34

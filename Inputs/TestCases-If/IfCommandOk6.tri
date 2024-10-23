@@ -1,0 +1,12 @@
+! If Command successful test
+! if E then C1 else C2 where
+! C1 and C2 are single commands (vname := expression)
+
+let
+  var a : Integer;
+  var b : Integer
+in
+    if (a<b) then
+        a := (2*b) ! vname := expression
+    else
+        a := (b/2) ! vname := expression

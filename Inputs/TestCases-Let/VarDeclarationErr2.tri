@@ -1,0 +1,6 @@
+! Test of type declaration, it fails
+
+let
+   var var: Integer ! Cannot use var as an identifier
+in
+   put('a')

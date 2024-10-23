@@ -1,0 +1,7 @@
+! Identifier successful test
+! Identifiers can be built with just one letter
+
+let
+    var t : Integer
+in
+    putint(t)

@@ -1,0 +1,6 @@
+! Test of type declaration, it works
+
+let
+  type Entero ~ Integer;
+  var i: Entero
+in

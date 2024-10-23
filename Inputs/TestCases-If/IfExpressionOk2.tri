@@ -1,0 +1,14 @@
+! If Expression successful test
+! if E1 then E2 else E3 where
+! E1 evaluates as boolean
+! E2 and E3 are Integers-Literals
+
+let
+  var c : Boolean
+in
+begin
+  c := if (c) then ! Contextual error, asigning integer to boolean variable
+    8
+  else
+    10
+end

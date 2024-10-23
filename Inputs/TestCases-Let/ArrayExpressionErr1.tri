@@ -1,0 +1,12 @@
+! Test of array expression, it fails
+let
+
+  var b : array 10 true ! of missing
+
+in
+begin
+
+
+end
+
+! contextual error true is not a type

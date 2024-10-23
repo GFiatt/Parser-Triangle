@@ -1,0 +1,11 @@
+! If Command error test
+! An if expression must be always followed by a then clause
+
+let
+  var a : Integer;
+  var b : Integer
+in
+  if (if a < 5 then true else false) ! missing then clause
+    putint(a)
+  else
+    putint(b)

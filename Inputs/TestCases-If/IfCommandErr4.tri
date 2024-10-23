@@ -1,0 +1,12 @@
+! If Command error test
+! if E1 then E2 else E3
+! E2 and E3 must be single commands, not expressions
+
+let
+  var a : Integer;
+  var b : Integer
+in
+  if (if a < 12 then true else false) then
+    a ! expression, not single command
+  else
+    b ! expression, not single command

@@ -1,0 +1,16 @@
+! If Command successful test
+! if E then C1 else C2 where
+! C1 is a let expression and C2 is vname:=expression
+
+let
+    var p : Integer;
+    var a : array 10 of Char
+in
+    if a[p] > a[p+1] then
+        let var c : Char
+        in
+            begin
+            c := a[p]; a[p] := a[p+1]; a[p+1] := c
+            end
+        else
+            a[p] := a[p+1]

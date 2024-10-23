@@ -1,0 +1,7 @@
+! Test of begin-end, it runs correctly
+
+begin
+  putint(6);
+  putint(7);
+  putint(8)
+end

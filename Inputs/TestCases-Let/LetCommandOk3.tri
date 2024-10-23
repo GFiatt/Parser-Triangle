@@ -1,0 +1,11 @@
+! Test of let in command inside let in command, it succeeds
+
+let 
+	var i : Char;
+	var j : Integer
+in 
+	let
+        const k ~ 5
+    in
+        put(i)
+

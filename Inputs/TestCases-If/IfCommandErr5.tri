@@ -1,0 +1,14 @@
+! If Command error test
+! missing else clause
+
+let
+    var p : Integer;
+    var a : array 10 of Char
+in
+    if a[p] > a[p+1] then
+        let var c : Char
+        in
+            begin
+            c := a[p]; a[p] := a[p+1]; a[p+1] := c
+            end
+        ! should report error of missing else clause

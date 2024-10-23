@@ -1,0 +1,14 @@
+! Test of call command, it succeeds in the parser
+let
+   proc p1(a: Integer , b: Char) ~ begin
+                          put('[');
+                          putint(a);
+                          put(']')
+                         end;
+   var x: Integer
+in
+begin
+  getint(var x);
+  p1(x,'a',2); ! Parser does not check if actual parameter matches the original parameters
+  p1()
+end

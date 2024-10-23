@@ -1,0 +1,5 @@
+! Test of procedure declaration, it fails
+let
+   proc p() ~ 3+5 ! Expected command, got expression
+in
+  p()

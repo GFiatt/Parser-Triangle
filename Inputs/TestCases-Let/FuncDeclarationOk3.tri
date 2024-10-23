@@ -1,0 +1,5 @@
+! Test of function declaration, it works
+
+let
+   func media(a: Integer, b: Integer): Integer ~ (a+b)/2
+in

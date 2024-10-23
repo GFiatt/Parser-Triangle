@@ -1,0 +1,6 @@
+! Test of procedure declaration, it works
+
+let
+   proc x() ~ put('z')
+in
+  x()

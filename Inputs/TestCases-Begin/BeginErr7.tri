@@ -1,0 +1,11 @@
+! Test of begin-end, doesn't run correctly
+
+begin
+    begin
+        while true do putint(1)
+    end !; !missing semicolon
+    let      
+        var i : Integer
+    in 
+        i := 2
+end

@@ -1,0 +1,7 @@
+! Test of let in expression, it fails
+let
+   func a(): Integer ~
+        let var b: Integer then ! let expects "in", not "then"
+            b
+in
+  putint(0)

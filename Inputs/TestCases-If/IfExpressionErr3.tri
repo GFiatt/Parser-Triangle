@@ -1,0 +1,16 @@
+! If Expression error test
+! if expression must always be followed by an else clause
+
+let
+  var c : Boolean;
+  var p : Boolean
+in
+begin
+  c := (ord(b) = a);
+  p := 
+    if (c) then
+    true
+    ! missing else clause
+end
+
+!Also a contextual error: a and b are not declared

@@ -1,0 +1,18 @@
+! Vname successful test
+! Vnames as Vname[Expression]
+
+let
+   type StudentGrade ~ 
+          record
+            homeworks: array 3 of Integer,
+            classwork: Integer
+          end;
+   var studentGrade: StudentGrade
+in
+  begin
+    studentGrade.homeworks[0] := 72;
+    studentGrade.homeworks[1] := 100;
+    studentGrade.homeworks[2] := 96;
+    studentGrade.classwork := 90;
+    putint(studentGrade.homeworks[1])
+  end

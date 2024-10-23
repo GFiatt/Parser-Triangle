@@ -1,0 +1,7 @@
+! Test of begin-end, doesn't run correctly
+
+begin
+    if (1=1)            ! this is an If-Expression 
+    then 'a'            ! begin needs a command
+    else 0 
+end

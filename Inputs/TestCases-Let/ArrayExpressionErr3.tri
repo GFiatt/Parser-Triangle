@@ -1,0 +1,6 @@
+! Test of array expression, it runs
+let
+
+  var b : array of Integer! Expected size between array and of
+
+in

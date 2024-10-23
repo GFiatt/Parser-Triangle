@@ -1,0 +1,11 @@
+! Test of begin-end, it runs correctly
+
+begin
+    begin
+        while true do putint(1)
+    end;
+    let                 ! this is a Let-Command
+        var i : Integer
+    in 
+        i := 2
+end

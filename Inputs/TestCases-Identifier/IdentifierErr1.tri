@@ -1,0 +1,4 @@
+! Identifier error test
+! Reserved words can't be used as identifiers
+
+begin := 23 !Not declared, contextual error

@@ -1,0 +1,12 @@
+! If Command successful test
+! Evaluates if inside if expression
+! If expression can be used as expression
+
+let
+  var a : Integer;
+  var b : Integer
+in
+  if (if a < 5 then true else false) then
+    putint(a)
+  else
+    putint(b)

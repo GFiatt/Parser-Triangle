@@ -1,0 +1,21 @@
+! If expression successful test
+! if E1 then E2 else E3 where
+! where E1, E2 and E2 are an if expression
+
+let
+  var a : Integer;
+  var b : Integer;
+  var x : Integer;
+  var y : Integer
+in
+  putint(if (if (a > b) then true else false) then
+    if (x < a) then
+            a
+        else
+            x
+  else
+    if (y > b) then
+            y
+        else
+            b
+  )

@@ -1,0 +1,10 @@
+! Test of begin-end, it runs correctly
+
+begin
+    if (a=1)            ! this is an If-Command
+    then putint(a)              
+    else a := 1 
+end
+
+! OK lexical and syntactic analysis
+! Contextual Error, a is not declared

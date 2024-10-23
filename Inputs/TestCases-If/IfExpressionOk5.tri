@@ -1,0 +1,15 @@
+! If Expression successful test
+! If E1 then E2 else E3 where
+! E2 and E2 are operator primary expressions
+
+let
+    var a : Integer;
+    var b : Integer;
+    var c : Integer;
+    var d : Integer;
+    var bigger : Integer
+in
+    bigger := if ((a+c)>(b+d)) then
+        a+c
+    else
+        b+d
