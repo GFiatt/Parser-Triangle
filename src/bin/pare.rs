@@ -32,6 +32,17 @@ enum ASTNode {
         identifier: String,
         type_denoter: Box<ASTNode>,
     },
+    ProcDeclaration {
+        identifier: String,
+        parameters: Vec<(String, ASTNode)>,
+        command: Box<ASTNode>,
+    },
+    FuncDeclaration {
+        identifier: String,
+        parameters: Vec<(String, ASTNode)>,
+        return_type: Box<ASTNode>,
+        body: Box<ASTNode>,
+    },
     IfCommand {
         condition: Box<ASTNode>,
         then_command: Box<ASTNode>,
@@ -68,6 +79,10 @@ enum ASTNode {
         operator: String,
         left: Box<ASTNode>,
         right: Box<ASTNode>,
+    },
+    UnaryExpression {
+        operator: String,
+        operand: Box<ASTNode>,
     },
     Empty,
 }
@@ -110,6 +125,8 @@ fn main() {
             ASTNode::ConstDeclaration { identifier, .. } => format!("ConstDeclaration({})", identifier),
             ASTNode::VarDeclaration { identifier, .. } => format!("VarDeclaration({})", identifier),
             ASTNode::TypeDeclaration { identifier, .. } => format!("TypeDeclaration({})", identifier),
+            ASTNode::ProcDeclaration { identifier, .. } => format!("ProcDeclaration({})", identifier),
+            ASTNode::FuncDeclaration { identifier, .. } => format!("FuncDeclaration({})", identifier),
             ASTNode::IfCommand { .. } => "IfCommand".to_string(),
             ASTNode::WhileCommand { .. } => "WhileCommand".to_string(),
             ASTNode::CallCommand { identifier, .. } => format!("CallCommand({})", identifier),
@@ -124,6 +141,7 @@ fn main() {
             ASTNode::DotVName { identifier, .. } => format!("DotVName({})", identifier),
             ASTNode::SubscriptVName { .. } => "SubscriptVName".to_string(),
             ASTNode::BinaryExpression { operator, .. } => format!("BinaryExpression({})", operator),
+            ASTNode::UnaryExpression { operator, .. } => format!("UnaryExpression({})", operator),
             ASTNode::Empty => "Empty".to_string(),
         };
 
@@ -164,6 +182,25 @@ fn main() {
             }
             ASTNode::TypeDeclaration { type_denoter, .. } => {
                 build_graph(type_denoter, graph, Some(current));
+            }
+            ASTNode::ProcDeclaration { parameters, command, .. } => {
+                for (param_name, param_type) in parameters {
+                    let param_label = format!("Param: {}", param_name);
+                    let param_node = graph.add_node(param_label);
+                    graph.add_edge(current, param_node, ());
+                    build_graph(param_type, graph, Some(param_node));
+                }
+                build_graph(command, graph, Some(current));
+            }
+            ASTNode::FuncDeclaration { parameters, return_type, body, .. } => {
+                for (param_name, param_type) in parameters {
+                    let param_label = format!("Param: {}", param_name);
+                    let param_node = graph.add_node(param_label);
+                    graph.add_edge(current, param_node, ());
+                    build_graph(param_type, graph, Some(param_node));
+                }
+                build_graph(return_type, graph, Some(current));
+                build_graph(body, graph, Some(current));
             }
             ASTNode::IfCommand { condition, then_command, else_command } => {
                 build_graph(condition, graph, Some(current));
@@ -217,6 +254,9 @@ fn main() {
             ASTNode::BinaryExpression { left, right, .. } => {
                 build_graph(left, graph, Some(current));
                 build_graph(right, graph, Some(current));
+            }
+            ASTNode::UnaryExpression { operand, .. } => {
+                build_graph(operand, graph, Some(current));
             }
             ASTNode::IntegerLiteral(_) => {}
             ASTNode::CharacterLiteral(_) => {}

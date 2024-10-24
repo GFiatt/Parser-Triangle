@@ -2,21 +2,25 @@
   "Program": {
     "LetCommand": {
       "declarations": {
-        "VarDeclaration": {
+        "ProcDeclaration": {
           "identifier": "x",
-          "type_denoter": {
-            "TypeDenoter": "Integer"
+          "parameters": [],
+          "command": {
+            "CallCommand": {
+              "identifier": "put",
+              "actual_parameters": [
+                {
+                  "CharacterLiteral": "z"
+                }
+              ]
+            }
           }
         }
       },
       "command": {
-        "Assignment": {
-          "vname": {
-            "VName": "x"
-          },
-          "expression": {
-            "IntegerLiteral": 123
-          }
+        "CallCommand": {
+          "identifier": "x",
+          "actual_parameters": []
         }
       }
     }
