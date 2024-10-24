@@ -588,7 +588,7 @@ impl Parser {
             let identifier = self.advance_lexeme();
             Ok(ASTNode::TypeDenoter(identifier))
         } else {
-            self.error("a type denoter", &self.current_token(), "hola")
+            self.error("a type denoter", &self.current_token(), "")
         }
     }
 
