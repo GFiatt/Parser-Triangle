@@ -1,0 +1,28 @@
+{
+  "Program": {
+    "LetCommand": {
+      "declarations": {
+        "ProcDeclaration": {
+          "identifier": "x",
+          "parameters": [],
+          "command": {
+            "CallCommand": {
+              "identifier": "put",
+              "actual_parameters": [
+                {
+                  "CharacterLiteral": "z"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "command": {
+        "CallCommand": {
+          "identifier": "x",
+          "actual_parameters": []
+        }
+      }
+    }
+  }
+}
